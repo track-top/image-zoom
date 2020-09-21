@@ -734,16 +734,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:10.4.7":
-  version: 10.4.7
-  resolution: "@testing-library/react@npm:10.4.7"
+"@testing-library/react@npm:10.4.8":
+  version: 10.4.8
+  resolution: "@testing-library/react@npm:10.4.8"
   dependencies:
     "@babel/runtime": ^7.10.3
     "@testing-library/dom": ^7.17.1
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: 2e640e25219886afbaa363a9bac81d2c29317c40ef3d8fb7c5b620e90872fa2671ef313f0fc7e3dab1b9eb3ed5c9b7c628b3a04abb1106d60dbab146a9fc0aa1
+  checksum: 8e725f094be47651b852a356e7fff9bcde2ab665c8ba7b0d9ef8e2140dd1158c8b58d4fcbebd4f5d03e32cff34c4c035a4d5a761903f1c908bebc2fe6abc8ec2
   languageName: node
   linkType: hard
 
@@ -1465,10 +1465,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axe-core@npm:4.0.0":
-  version: 4.0.0
-  resolution: "axe-core@npm:4.0.0"
-  checksum: 5a2a291d928e27a1c3281cb3829ea8a81dcf82c79c87a65ed68381f9ff455877f7398f14b785e4af90dcf3d7ca3924f115d9bbd36023a984e7e6a16fc5e3e22d
+"axe-core@npm:4.0.1":
+  version: 4.0.1
+  resolution: "axe-core@npm:4.0.1"
+  checksum: 517ed72a55dfbdf23b891b79974fe7d24c2858ed5deb15fc07ce190abec016f01d83e6ab228274b403520411f5a383ce64c1b4f51fa84de10e8bf600073fbc33
   languageName: node
   linkType: hard
 
@@ -6086,7 +6086,7 @@ resolve@1.15.1:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@testing-library/jest-dom": 5.11.2
-    "@testing-library/react": 10.4.7
+    "@testing-library/react": 10.4.8
     "@types/jest": 26.0.8
     "@types/node": 14.0.27
     "@types/react": 16.9.44
@@ -6094,7 +6094,7 @@ resolve@1.15.1:
     "@typescript-eslint/eslint-plugin": 3.8.0
     "@typescript-eslint/parser": 3.8.0
     all-contributors-cli: 6.17.0
-    axe-core: 4.0.0
+    axe-core: 4.0.1
     chokidar-cli: 2.1.0
     eslint: 7.6.0
     eslint-plugin-jest: 23.20.0

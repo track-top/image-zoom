@@ -57,3 +57,66 @@ const useImageZoom: UseImageZoom = (opts) => {
 }
 
 export default useImageZoom
+
+//import React, { memo, useCallback, useEffect, useRef } from 'react'
+//import cx from 'classnames'
+//import { getBlockImgAlt } from '../utils/image'
+//import { init as initZoom } from '../utils/zoom'
+//import SWNEArrows from './icons/SWNEArrows'
+//import './Image.scss'
+
+//const Image = ({
+//  alt,
+//  allowTabNavigation = true,
+//  caption,
+//  disableZoom,
+//  fileName,
+//  imageKey,
+//  onLoad,
+//  src,
+//}) => {
+//  const imgRef = useRef()
+//  const izRef = useRef()
+//  const altValue = getBlockImgAlt({ alt, caption, fileName, key: imageKey })
+//  const shouldZoom = allowTabNavigation && !disableZoom
+
+//  const handleClick = useCallback(e => {
+//    izRef.current.zoom(imgRef.current, e.currentTarget, {})
+//  }, [])
+
+//  useEffect(() => {
+//    const iz = initZoom()
+//    izRef.current = iz
+
+//    return () => {
+//      iz.cleanup()
+//    }
+//  }, [])
+
+//  const imgCn = cx('img-img', { 'img-zoom': shouldZoom })
+//  const imgOnClick = shouldZoom ? handleClick : undefined
+
+//  return (
+//    <div className="img">
+//      <img // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+//        alt={altValue}
+//        className={imgCn}
+//        onClick={imgOnClick}
+//        onLoad={onLoad}
+//        ref={imgRef}
+//        src={src}
+//      />
+//      {shouldZoom &&
+//        <button
+//          aria-label="Zoom image"
+//          className="img-btn img-zoom visually-hidden"
+//          onClick={handleClick}
+//        >
+//          <SWNEArrows aria-hidden="true" className="img-btn-symbol" />
+//        </button>
+//      }
+//    </div>
+//  )
+//}
+
+//export default memo(Image)
