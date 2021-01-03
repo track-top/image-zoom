@@ -1,0 +1,70 @@
+{
+  "name": "react-medium-image-zoom",
+  "version": "5.0.0-rc.10",
+  "license": "BSD-3-Clause",
+  "author": "Robert Pearce <me@robertwpearce.com> (https://robertwpearce.com)",
+  "contributors": [
+    "Robert Pearce <me@robertwpearce.com> (https://robertwpearce.com)",
+    "Cameron Bothner (https://github.com/cbothner)",
+    "ismay <ismay@ismaywolff.nl> (https://www.ismaywolff.nl)",
+    "Jeremy Bini <jeremybini@gmail.com> (https://jbini.com)",
+    "Josh Sloat (http://www.joshsloat.com)",
+    "Kaycee Ingram <kayceeingram33@gmail.com> (https://github.com/HippoDippo)",
+    "Ludwig Frank (https://github.com/ludwigfrank)",
+    "Rahul Gaba <rahulgaba16@gmail.com> (http://rahulgaba.com)",
+    "Spencer Davis (https://github.com/spencerfdavis)",
+    "dnlnvl (https://github.com/dnlnvl)",
+    "Douglas Galdino <dougg0k@gmail.com> (https://dougg0k.js.org)",
+    "Sun Knudsen (https://sunknudsen.com)",
+    "Youngrok Kim <rok0810@gmail.com> (https://rokoroku.github.io)"
+  ],
+  "description": "Accessible medium.com-style image zoom for React",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rpearce/image-zoom.git"
+  },
+  "homepage": "https://github.com/rpearce/image-zoom/packages/react-medium-image-zoom",
+  "bugs": "https://github.com/rpearce/image-zoom/issues",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/rpearce"
+    }
+  ],
+  "keywords": [
+    "react",
+    "medium",
+    "image",
+    "zoom",
+    "image-zoom",
+    "modal",
+    "react-component"
+  ],
+  "tags": [
+    "react",
+    "medium",
+    "image",
+    "zoom",
+    "image-zoom",
+    "modal",
+    "react-component"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "sideEffects": false,
+  "files": [
+    "LICENSE",
+    "dist/"
+  ],
+  "devDependencies": {
+    "@types/react": "17.0.0",
+    "typescript": "4.1.3"
+  },
+  "peerDependencies": {
+    "react": ">= 16.8.0"
+  },
+  "dependencies": {
+    "@rpearce/image-zoom": "^0.2.0",
+    "tslib": "^2.1.0"
+  }
+}
