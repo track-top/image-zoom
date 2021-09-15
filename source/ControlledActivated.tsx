@@ -9,14 +9,15 @@ import React, {
   useState,
 } from 'react'
 import { createPortal } from 'react-dom'
-import useEvent from 'react-use/lib/useEvent'
-import usePrevious from 'react-use/lib/usePrevious'
-import useWindowSize from 'react-use/lib/useWindowSize'
+import { useEvent, usePrevious, useWindowSize } from 'react-use'
 import {
   getModalContentStyle,
   getModalOverlayStyle,
   pseudoParentEl,
 } from './helpers'
+
+const rmizPortalEl = document.createElement(`div`)
+document.body.appendChild(rmizPortalEl)
 
 export interface ControlledActivatedProps {
   children: ReactNode
@@ -37,15 +38,15 @@ export interface ControlledActivatedProps {
 
 const ControlledActivated: FC<ControlledActivatedProps> = ({
   children,
-  closeText = 'Unzoom Image',
+  closeText = `Unzoom Image`,
   isActive: isActiveFromParent,
   onLoad,
   onUnload,
   onZoomChange,
-  overlayBgColorEnd = 'rgba(255, 255, 255, 0.95)',
-  overlayBgColorStart = 'rgba(255, 255, 255, 0)',
+  overlayBgColorEnd = `rgba(255, 255, 255, 0.95)`,
+  overlayBgColorStart = `rgba(255, 255, 255, 0)`,
   parentRef,
-  portalEl = document.body,
+  portalEl = rmizPortalEl,
   scrollableEl = window,
   transitionDuration = 300,
   zoomMargin = 0,
@@ -75,7 +76,7 @@ const ControlledActivated: FC<ControlledActivatedProps> = ({
   // on escape, tell caller it should unzoom
   const handleKeyDown = useCallback(
     e => {
-      if (isActive && (e.key === 'Escape' || e.keyCode === 27)) {
+      if (isActive && (e.key === `Escape` || e.keyCode === 27)) {
         e.stopPropagation()
         if (onZoomChange) {
           onZoomChange(false)
@@ -94,10 +95,10 @@ const ControlledActivated: FC<ControlledActivatedProps> = ({
   }, [isUnloading, onZoomChange])
 
   // listen for keydown on the document
-  useEvent('keydown', handleKeyDown, document)
+  useEvent(`keydown`, handleKeyDown, document)
 
   // listen for scroll and close
-  useEvent('scroll', handleScroll, scrollableEl)
+  useEvent(`scroll`, handleScroll, scrollableEl)
 
   // set loaded on mount and focus
   useEffect(() => {

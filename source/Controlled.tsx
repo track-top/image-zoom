@@ -1,9 +1,8 @@
-import 'focus-options-polyfill'
 import React, {
   CSSProperties,
+  ElementType,
   FC,
   ReactNode,
-  ReactType,
   RefObject,
   StrictMode,
   memo,
@@ -24,7 +23,7 @@ export interface ControlledProps {
   portalEl?: HTMLElement
   scrollableEl?: HTMLElement | Window
   transitionDuration?: number
-  wrapElement?: ReactType
+  wrapElement?: ElementType
   wrapStyle?: CSSProperties
   zoomMargin?: number
   zoomZindex?: number
@@ -32,16 +31,16 @@ export interface ControlledProps {
 
 const Controlled: FC<ControlledProps> = ({
   children,
-  closeText = 'Unzoom image',
+  closeText = `Unzoom image`,
   isZoomed: isActive,
-  overlayBgColorEnd = 'rgba(255, 255, 255, 0.95)',
-  overlayBgColorStart = 'rgba(255, 255, 255, 0)',
+  overlayBgColorEnd = `rgba(255, 255, 255, 0.95)`,
+  overlayBgColorStart = `rgba(255, 255, 255, 0)`,
   portalEl,
   onZoomChange,
-  openText = 'Zoom image',
+  openText = `Zoom image`,
   scrollableEl,
   transitionDuration = 300,
-  wrapElement: WrapElement = 'div',
+  wrapElement: WrapElement = `div`,
   wrapStyle,
   zoomMargin = 0,
   zoomZindex = 2147483647,
@@ -72,7 +71,7 @@ const Controlled: FC<ControlledProps> = ({
     }
   }, [])
 
-  const wrapType = isChildLoaded ? 'hidden' : 'visible'
+  const wrapType = isChildLoaded ? `hidden` : `visible`
 
   return (
     <StrictMode>
@@ -89,7 +88,7 @@ const Controlled: FC<ControlledProps> = ({
           ref={btnRef}
           type="button"
         />
-        {typeof window !== 'undefined' && (
+        {typeof window !== `undefined` && (
           <ControlledActivated
             closeText={closeText}
             isActive={isActive}

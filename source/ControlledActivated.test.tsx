@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import React, { createRef } from 'react'
 import ControlledActivated from './ControlledActivated'
 
-test('uses pseudo-parent when no parentRef.current', async () => {
+test(`uses pseudo-parent when no parentRef.current`, async () => {
   render(
     <ControlledActivated
       closeText="Unzoom image"
@@ -26,7 +26,7 @@ test('uses pseudo-parent when no parentRef.current', async () => {
   expect(document.body).toMatchSnapshot()
 })
 
-test('render with default props', async () => {
+test(`render with default props`, async () => {
   render(
     <ControlledActivated
       isActive

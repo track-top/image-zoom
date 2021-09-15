@@ -1,110 +1,155 @@
-import 'focus-options-polyfill'
 import React, {
   CSSProperties,
   FC,
   ReactNode,
-  ReactType,
-  RefObject,
   StrictMode,
   memo,
   useCallback,
   useRef,
   useState,
 } from 'react'
+import { createPortal } from 'react-dom'
 import UncontrolledActivated from './UncontrolledActivated'
+import IEnlarge from './IEnlarge'
+import useImgGhost from './useImgGhost'
+
+const rmizPortalEl = document.createElement(`div`)
+document.body.appendChild(rmizPortalEl)
 
 export interface UncontrolledProps {
   children: ReactNode
   closeText?: string
+  modalLabelText?: string
   openText?: string
   overlayBgColorEnd?: string
   overlayBgColorStart?: string
   portalEl?: HTMLElement
   scrollableEl?: HTMLElement | Window
   transitionDuration?: number
-  wrapElement?: ReactType
   wrapStyle?: CSSProperties
   zoomMargin?: number
   zoomZindex?: number
 }
 
+export interface GetScroll {
+  (scrollableEl?: HTMLElement | Window): ({
+    scrollEl:    HTMLElement | Window,
+    scrollLeft:  number,
+    scrollTop:   number,
+  })
+}
+
+const getScroll: GetScroll = scrollableEl => {
+  const scrollEl = (scrollableEl ||
+    document.scrollingElement ||
+    document.documentElement) as HTMLElement | Window
+
+  const scrollLeft = scrollEl instanceof Window
+    ? window.scrollX
+    : scrollEl.scrollLeft
+
+  const scrollTop  = scrollEl instanceof Window
+    ? window.scrollY
+    : scrollEl.scrollTop
+
+  return { scrollEl, scrollLeft, scrollTop }
+}
+
 const Uncontrolled: FC<UncontrolledProps> = ({
   children,
-  closeText = 'Unzoom image',
-  overlayBgColorEnd = 'rgba(255, 255, 255, 0.95)',
-  overlayBgColorStart = 'rgba(255, 255, 255, 0)',
+  closeText = `Unzoom image`,
+  modalLabelText = `Zoomed image`,
+  overlayBgColorEnd = `rgba(255, 255, 255, 0.95)`,
+  overlayBgColorStart = `rgba(255, 255, 255, 0)`,
   portalEl,
-  openText = 'Zoom image',
+  openText = `Zoom image`,
   scrollableEl,
   transitionDuration = 300,
-  wrapElement: WrapElement = 'div',
   wrapStyle,
   zoomMargin = 0,
   zoomZindex = 2147483647,
 }: UncontrolledProps) => {
-  const [isActive, setIsActive] = useState<boolean>(false)
-  const [isChildLoaded, setIsChildLoaded] = useState<boolean>(false)
-  const wrapRef = useRef<HTMLElement>(null)
-  const btnRef = useRef<HTMLButtonElement>(null)
+  const [isActive, setIsActive]           = useState(false)
+  const [isChildLoaded, setIsChildLoaded] = useState(false)
 
-  const handleClickTrigger = useCallback(
-    e => {
-      if (!isActive) {
-        e.preventDefault()
-        setIsActive(true)
-      }
-    },
-    [isActive]
-  )
-
-  const handleChildLoad = useCallback(() => {
-    setIsChildLoaded(true)
-  }, [])
-
-  const handleChildUnload = useCallback(() => {
-    setIsActive(false)
-    setIsChildLoaded(false)
-
-    if (btnRef.current) {
-      btnRef.current.focus({ preventScroll: true })
-    }
-  }, [])
+  const refWrap    = useRef<HTMLDivElement>(null)
+  const refContent = useRef<HTMLDivElement>(null)
+  const refBtn     = useRef<HTMLButtonElement>(null)
 
   const isExpanded = isActive && isChildLoaded
-  const wrapType = isExpanded ? 'hidden' : 'visible'
+  const wrapType   = isExpanded ? `hidden` : `visible`
+  const styleGhost = useImgGhost(refContent)
+
+  const handleClickTrigger = useCallback(() => {
+    if (!isActive) {
+      setIsActive(true)
+    }
+  }, [isActive])
+
+  //const handleChildLoad = useCallback(() => {
+  //  setIsChildLoaded(true)
+  //}, [])
+
+  //const handleChildUnload = useCallback(() => {
+  //  setIsActive(false)
+  //  setIsChildLoaded(false)
+
+  //  if (refBtn.current) {
+  //    const { scrollEl, scrollLeft, scrollTop } = getScroll(scrollableEl)
+
+  //    refBtn.current.focus({ preventScroll: true })
+
+  //    if (scrollableEl) {
+  //      if (scrollEl instanceof Window) {
+  //        window.scrollTo(scrollLeft, scrollTop)
+  //      } else {
+  //        scrollEl.scrollLeft = scrollLeft
+  //        scrollEl.scrollTop  = scrollTop
+  //      }
+  //    }
+  //  }
+  //}, [scrollableEl])
 
   return (
     <StrictMode>
-      <WrapElement
-        data-rmiz-wrap={wrapType}
-        ref={wrapRef as RefObject<HTMLElement>}
-        style={wrapStyle}
-      >
-        {children}
-        <button
-          aria-label={openText}
-          data-rmiz-btn-open
-          onClick={handleClickTrigger}
-          ref={btnRef}
-        />
-        {typeof window !== 'undefined' && isActive && (
-          <UncontrolledActivated
-            closeText={closeText}
-            onLoad={handleChildLoad}
-            onUnload={handleChildUnload}
-            overlayBgColorEnd={overlayBgColorEnd}
-            overlayBgColorStart={overlayBgColorStart}
-            parentRef={wrapRef}
-            portalEl={portalEl}
-            scrollableEl={scrollableEl}
-            transitionDuration={transitionDuration}
-            zoomMargin={zoomMargin}
-            zoomZindex={zoomZindex}
+      <div data-rmiz={wrapType} ref={refWrap} style={wrapStyle}>
+        <div data-rmiz-ghost style={styleGhost}>
+          <button
+            aria-label={openText}
+            data-rmiz-btn-open
+            onClick={handleClickTrigger}
+            ref={refBtn}
+            type="button"
           >
-            {children}
-          </UncontrolledActivated>
-        )}
-      </WrapElement>
+            <IEnlarge />
+          </button>
+        </div>
+        <div data-rmiz-content ref={refContent}>
+          {children}
+        </div>
+        {/*createPortal(
+          <UA
+
+          />,
+          rmizPortalEl
+          )*/}
+        {/*<UncontrolledActivated
+          closeText={closeText}
+          modalLabelText={modalLabelText}
+          onLoad={handleChildLoad}
+          onUnload={handleChildUnload}
+          overlayBgColorEnd={overlayBgColorEnd}
+          overlayBgColorStart={overlayBgColorStart}
+          parentRef={refWrap}
+          portalEl={portalEl}
+          scrollableEl={scrollableEl}
+          transitionDuration={transitionDuration}
+          zoomMargin={zoomMargin}
+          zoomZindex={zoomZindex}
+        >
+          {children}
+        </UncontrolledActivated>*/}
+      </div>
     </StrictMode>
   )
 }

@@ -3,6 +3,7 @@
 exports[`render with default props 1`] = `
 <body>
   <div />
+  <div />
   <div
     aria-modal="true"
     data-rmiz-overlay="true"
@@ -30,6 +31,7 @@ exports[`render with default props 1`] = `
 
 exports[`uses pseudo-parent when no parentRef.current 1`] = `
 <body>
+  <div />
   <div />
   <div
     aria-modal="true"

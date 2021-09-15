@@ -3,7 +3,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import ControlledZoom from './Controlled'
 
-test('when closed and then open', () => {
+test(`when closed and then open`, () => {
   jest.useFakeTimers()
 
   const handleZoomChange = jest.fn()
@@ -13,7 +13,7 @@ test('when closed and then open', () => {
     </ControlledZoom>
   )
 
-  const openTrigger = getByLabelText('Zoom image')
+  const openTrigger = getByLabelText(`Zoom image`)
   expect(openTrigger).toBeVisible()
 
   expect(document.body).toMatchSnapshot()
@@ -32,8 +32,8 @@ test('when closed and then open', () => {
   // nothing should happen
   fireEvent.click(openTrigger)
 
-  const closeTrigger = getByLabelText('Unzoom image')
-  const modal = getByRole('dialog')
+  const closeTrigger = getByLabelText(`Unzoom image`)
+  const modal = getByRole(`dialog`)
   expect(closeTrigger).toBeVisible()
 
   fireEvent.click(closeTrigger)
@@ -56,7 +56,7 @@ test('when closed and then open', () => {
   expect(document.body).toMatchSnapshot()
 })
 
-test('when open and then closed', () => {
+test(`when open and then closed`, () => {
   const handleZoomChange = jest.fn()
   const { getByLabelText, getByRole, rerender } = render(
     <ControlledZoom isZoomed={true} onZoomChange={handleZoomChange}>
@@ -64,8 +64,8 @@ test('when open and then closed', () => {
     </ControlledZoom>
   )
 
-  const closeTrigger = getByLabelText('Unzoom image')
-  const modal = getByRole('dialog')
+  const closeTrigger = getByLabelText(`Unzoom image`)
+  const modal = getByRole(`dialog`)
   expect(closeTrigger).toBeVisible()
 
   fireEvent.click(closeTrigger)
@@ -86,13 +86,13 @@ test('when open and then closed', () => {
   expect(closeTrigger).not.toBeInTheDocument()
   expect(modal).not.toBeInTheDocument()
 
-  const openTrigger = getByLabelText('Zoom image')
+  const openTrigger = getByLabelText(`Zoom image`)
   expect(openTrigger).toBeVisible()
 
   expect(document.body).toMatchSnapshot()
 })
 
-test('sends unzoom message when ESC key pressed', () => {
+test(`sends unzoom message when ESC key pressed`, () => {
   const handleZoomChange = jest.fn()
   const { getByRole } = render(
     <ControlledZoom isZoomed={true} onZoomChange={handleZoomChange}>
@@ -100,21 +100,21 @@ test('sends unzoom message when ESC key pressed', () => {
     </ControlledZoom>
   )
 
-  const modal = getByRole('dialog')
+  const modal = getByRole(`dialog`)
   expect(modal).toBeVisible()
 
   // should do nothing
-  fireEvent.keyDown(document, { key: 'ArrowLeft' })
+  fireEvent.keyDown(document, { key: `ArrowLeft` })
   expect(handleZoomChange).not.toHaveBeenCalled()
 
   // just in case
   expect(modal).toBeVisible()
 
-  fireEvent.keyDown(document, { key: 'Escape' })
+  fireEvent.keyDown(document, { key: `Escape` })
   expect(handleZoomChange).toHaveBeenLastCalledWith(false)
 })
 
-test('sends unzoom message when scrolled', () => {
+test(`sends unzoom message when scrolled`, () => {
   const handleZoomChange = jest.fn()
   const { getByRole, rerender } = render(
     <ControlledZoom isZoomed={true} onZoomChange={handleZoomChange}>
@@ -122,13 +122,13 @@ test('sends unzoom message when scrolled', () => {
     </ControlledZoom>
   )
 
-  const modal = getByRole('dialog')
+  const modal = getByRole(`dialog`)
   expect(modal).toBeVisible()
 
   expect(handleZoomChange).not.toHaveBeenCalled()
 
   act(() => {
-    window.dispatchEvent(new Event('scroll', {}))
+    window.dispatchEvent(new Event(`scroll`, {}))
   })
 
   rerender(
@@ -139,14 +139,14 @@ test('sends unzoom message when scrolled', () => {
 
   act(() => {
     // run scroll again to emulate actual scroll events firing
-    window.dispatchEvent(new Event('scroll', {}))
+    window.dispatchEvent(new Event(`scroll`, {}))
     jest.advanceTimersByTime(300)
   })
 
   expect(handleZoomChange).toHaveBeenLastCalledWith(false)
 })
 
-test('custom open/close text', () => {
+test(`custom open/close text`, () => {
   const { getByLabelText, rerender } = render(
     <ControlledZoom
       closeText="Close me"
@@ -158,7 +158,7 @@ test('custom open/close text', () => {
     </ControlledZoom>
   )
 
-  const openTrigger = getByLabelText('Open me')
+  const openTrigger = getByLabelText(`Open me`)
   expect(openTrigger).toBeVisible()
   expect(document.body).toMatchSnapshot()
 
@@ -173,13 +173,13 @@ test('custom open/close text', () => {
     </ControlledZoom>
   )
 
-  const closeTrigger = getByLabelText('Close me')
+  const closeTrigger = getByLabelText(`Close me`)
   expect(closeTrigger).toBeVisible()
 
   expect(document.body).toMatchSnapshot()
 })
 
-test('renders without browser environment', () => {
+test(`renders without browser environment`, () => {
   const html = renderToString(
     <ControlledZoom isZoomed={false} onZoomChange={jest.fn()}>
       <img alt="foo" src="foo.jpg" width="500" />
@@ -190,7 +190,7 @@ test('renders without browser environment', () => {
   expect(document.body).toMatchSnapshot()
 })
 
-test('renders with different props', () => {
+test(`renders with different props`, () => {
   const html = renderToString(
     <ControlledZoom
       isZoomed={false}

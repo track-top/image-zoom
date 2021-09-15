@@ -3,25 +3,37 @@
 exports[`render with default props 1`] = `
 <body>
   <div />
+  <div />
   <div
-    aria-modal="true"
     data-rmiz-overlay="true"
-    role="dialog"
-    style="background-color: rgba(255, 255, 255, 0.95); transition-duration: 300ms; z-index: 2147483647;"
   >
     <div
-      data-rmiz-modal-content="true"
-      style="height: 0px; left: 0px; top: 0px; transform: scale(Infinity) translate(0px, 0px); transition-duration: 300ms; width: 0px;"
+      tabindex="0"
+    />
+    <div
+      aria-label="Zoomed image"
+      aria-modal="true"
+      role="dialog"
+      style="background-color: rgba(255, 255, 255, 0.95); transition-duration: 300ms; z-index: 2147483647;"
+      tabindex="-1"
     >
-      <img
-        alt="foo"
-        src="foo.jpg"
-        width="500"
+      <div
+        data-rmiz-modal-content="true"
+        style="height: 0px; left: 0px; top: 0px; transform: scale(Infinity) translate(0px, 0px); transition-duration: 300ms; width: 0px;"
+      >
+        <img
+          alt="foo"
+          src="foo.jpg"
+          width="500"
+        />
+      </div>
+      <button
+        aria-label="Unzoom Image"
+        data-rmiz-btn-close="true"
       />
     </div>
-    <button
-      aria-label="Unzoom Image"
-      data-rmiz-btn-close="true"
+    <div
+      tabindex="0"
     />
   </div>
 </body>
@@ -30,25 +42,37 @@ exports[`render with default props 1`] = `
 exports[`uses pseudo-parent when no parentRef.current 1`] = `
 <body>
   <div />
+  <div />
   <div
-    aria-modal="true"
     data-rmiz-overlay="true"
-    role="dialog"
-    style="background-color: rgba(255, 255, 255, 0.95); transition-duration: 300ms; z-index: 2147483647;"
   >
     <div
-      data-rmiz-modal-content="true"
-      style="height: 0px; left: 0px; top: 0px; transform: scale(Infinity) translate(0px, 0px); transition-duration: 300ms; width: 0px;"
+      tabindex="0"
+    />
+    <div
+      aria-label="Zoomed image"
+      aria-modal="true"
+      role="dialog"
+      style="background-color: rgba(255, 255, 255, 0.95); transition-duration: 300ms; z-index: 2147483647;"
+      tabindex="-1"
     >
-      <img
-        alt="foo"
-        src="foo.jpg"
-        width="500"
+      <div
+        data-rmiz-modal-content="true"
+        style="height: 0px; left: 0px; top: 0px; transform: scale(Infinity) translate(0px, 0px); transition-duration: 300ms; width: 0px;"
+      >
+        <img
+          alt="foo"
+          src="foo.jpg"
+          width="500"
+        />
+      </div>
+      <button
+        aria-label="Unzoom image"
+        data-rmiz-btn-close="true"
       />
     </div>
-    <button
-      aria-label="Unzoom image"
-      data-rmiz-btn-close="true"
+    <div
+      tabindex="0"
     />
   </div>
 </body>

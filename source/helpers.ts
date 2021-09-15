@@ -66,7 +66,7 @@ export const getModalContentStyle = ({
       `scale(1)`,
       `translate(0, 0)`,
       ...(originalTransform ? [originalTransform] : []),
-    ].join(' ')
+    ].join(` `)
 
     return {
       height,
@@ -105,7 +105,7 @@ export const getModalContentStyle = ({
     `scale(${scale})`,
     `translate(${translateX}px, ${translateY}px)`,
     ...(originalTransform ? [originalTransform] : []),
-  ].join(' ')
+  ].join(` `)
 
   return {
     height,
