@@ -11,7 +11,8 @@ import React, {
 import { createPortal } from 'react-dom'
 import UncontrolledActivated from './UncontrolledActivated'
 import IEnlarge from './IEnlarge'
-import useImgGhost from './useImgGhost'
+import useMeasureChild from './useMeasureChild'
+import { isBrowser } from './helpers'
 
 const rmizPortalEl = document.createElement(`div`)
 document.body.appendChild(rmizPortalEl)
@@ -78,7 +79,7 @@ const Uncontrolled: FC<UncontrolledProps> = ({
 
   const isExpanded = isActive && isChildLoaded
   const wrapType   = isExpanded ? `hidden` : `visible`
-  const styleGhost = useImgGhost(refContent)
+  const styleGhost = useMeasureChild(refContent)
 
   const handleClickTrigger = useCallback(() => {
     if (!isActive) {
@@ -154,4 +155,8 @@ const Uncontrolled: FC<UncontrolledProps> = ({
   )
 }
 
-export default memo(Uncontrolled)
+// If we're not in a browser environment,
+// there's no need to zoom images.
+export default isBrowser
+  ? memo(Uncontrolled)
+  : (props: UncontrolledProps) => props.children

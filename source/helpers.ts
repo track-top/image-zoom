@@ -1,5 +1,7 @@
 const toDurationString = (duration: number): string => `${duration}ms`
 
+export const isBrowser = typeof window !== "undefined"
+
 export interface GetScale {
   height: number
   innerHeight: number
