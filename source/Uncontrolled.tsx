@@ -11,7 +11,7 @@ import React, {
 import { createPortal } from 'react-dom'
 import UncontrolledActivated from './UncontrolledActivated'
 import IEnlarge from './IEnlarge'
-import useMeasureChild from './useMeasureChild'
+import useMeasureQuery from './useMeasureQuery'
 import { isBrowser } from './helpers'
 
 const rmizPortalEl = document.createElement(`div`)
@@ -32,29 +32,29 @@ export interface UncontrolledProps {
   zoomZindex?: number
 }
 
-export interface GetScroll {
-  (scrollableEl?: HTMLElement | Window): ({
-    scrollEl:    HTMLElement | Window,
-    scrollLeft:  number,
-    scrollTop:   number,
-  })
-}
+//export interface GetScroll {
+//  (scrollableEl?: HTMLElement | Window): ({
+//    scrollEl:    HTMLElement | Window,
+//    scrollLeft:  number,
+//    scrollTop:   number,
+//  })
+//}
 
-const getScroll: GetScroll = scrollableEl => {
-  const scrollEl = (scrollableEl ||
-    document.scrollingElement ||
-    document.documentElement) as HTMLElement | Window
+//const getScroll: GetScroll = scrollableEl => {
+//  const scrollEl = (scrollableEl ||
+//    document.scrollingElement ||
+//    document.documentElement) as HTMLElement | Window
 
-  const scrollLeft = scrollEl instanceof Window
-    ? window.scrollX
-    : scrollEl.scrollLeft
+//  const scrollLeft = scrollEl instanceof Window
+//    ? window.scrollX
+//    : scrollEl.scrollLeft
 
-  const scrollTop  = scrollEl instanceof Window
-    ? window.scrollY
-    : scrollEl.scrollTop
+//  const scrollTop  = scrollEl instanceof Window
+//    ? window.scrollY
+//    : scrollEl.scrollTop
 
-  return { scrollEl, scrollLeft, scrollTop }
-}
+//  return { scrollEl, scrollLeft, scrollTop }
+//}
 
 const Uncontrolled: FC<UncontrolledProps> = ({
   children,
@@ -79,7 +79,19 @@ const Uncontrolled: FC<UncontrolledProps> = ({
 
   const isExpanded = isActive && isChildLoaded
   const wrapType   = isExpanded ? `hidden` : `visible`
-  const styleGhost = useMeasureChild(refContent)
+
+  const queryImg = useCallback(() => {
+    return refContent.current?.querySelector('img')
+  }, [])
+
+  const imgRect = useMeasureQuery(queryImg)
+
+  const styleGhost = {
+    height:  imgRect.height,
+    left:    imgRect.left,
+    width:   imgRect.width,
+    top:     imgRect.top,
+  }
 
   const handleClickTrigger = useCallback(() => {
     if (!isActive) {
@@ -156,7 +168,7 @@ const Uncontrolled: FC<UncontrolledProps> = ({
 }
 
 // If we're not in a browser environment,
-// there's no need to zoom images.
+// there is no need to zoom images.
 export default isBrowser
   ? memo(Uncontrolled)
   : (props: UncontrolledProps) => props.children
